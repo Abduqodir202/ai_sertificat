@@ -48,8 +48,7 @@ const scoreLevelElement =
 
 
 const API_URL =
-    "http://127.0.0.1:8000/api/check-essay/";
-
+    "/api/check-essay/";
 
 // =====================================================
 // 24 BALL → 75 BALL VA DARAJA
