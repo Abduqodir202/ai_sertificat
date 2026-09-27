@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Проверка эссе — Русский язык и литература</title>
+
+    <link rel="stylesheet" href="../css/rus-esse.css">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        <div class="logo-icon">AI</div>
+        <span>AI Sertifikat</span>
+    </div>
+
+    <a href="index.html" class="back-btn">
+        ← Вернуться
+    </a>
+
+</header>
+
+
+<main class="container">
+
+    <!-- ================= TITLE ================= -->
+
+    <section class="page-title">
+
+        <div class="subject-badge">
+            🇺🇿 О‘zbekiston Milliy sertifikati
+            <br>
+            🇷🇺 Русский язык и литература
+        </div>
+
+        <h1>Проверка письменной работы</h1>
+        <p class="exam-subtitle">
+            О‘zbekiston Milliy sertifikati — Русский язык и литература
+        </p>
+
+        <p class="subtitle">
+            Напишите эссе и проверьте его в соответствии
+            с критериями национальной системы оценки.
+        </p>
+
+    </section>
+
+
+    <div class="content">
+
+
+        <!-- ================= LEFT ================= -->
+
+        <section>
+
+            <div class="card">
+
+                <!-- HEADER -->
+
+                <div class="essay-header">
+
+                    <h2 class="card-title">
+                        📝 Ваша письменная работа
+                    </h2>
+
+                    <!-- STUDENT NAME -->
+
+                    <div class="student-field">
+
+                        <label for="studentName">
+                            👤 Имя ученика
+                            <span>(необязательно)</span>
+                        </label>
+
+                        <input
+                                type="text"
+                                id="studentName"
+                                placeholder="Имя ученика"
+                                maxlength="150"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= ТЕМА ================= -->
+
+                <div class="topic-box">
+                    <label for="essayTopic">ТЕМА</label>
+
+                    <textarea
+                            id="essayTopic"
+                            class="topic-input"
+                            placeholder="Введите тему письменной работы..."
+                            rows="2"
+                            maxlength="500"
+                    ></textarea>
+                </div>
+
+
+                <!-- ================= ESSAY ================= -->
+
+                <textarea
+                        id="essayText"
+                        placeholder="Начните писать эссе здесь..."
+                        maxlength="20000"
+                ></textarea>
+
+
+                <!-- ================= COUNTERS ================= -->
+
+                <div class="counters">
+
+                    <div class="counter">
+
+                        <span id="wordCount">
+                            0
+                        </span>
+
+                        <small>
+                            слов
+                        </small>
+
+                    </div>
+
+
+                    <div class="counter">
+
+                        <span id="charCount">
+                            0
+                        </span>
+
+                        <small>
+                            символов
+                        </small>
+
+                    </div>
+
+
+                    <div class="counter">
+
+                        <span id="paragraphCount">
+                            0
+                        </span>
+
+                        <small>
+                            абзацев
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= REQUIREMENT ================= -->
+
+                <div
+                        id="wordStatus"
+                        class="word-status neutral"
+                >
+                    Введите эссе для проверки объёма.
+                </div>
+
+
+                <!-- ================= BUTTON ================= -->
+
+                <button
+                        class="check-btn"
+                        onclick="checkEssay()"
+                >
+                    🔍 Проверить эссе
+                </button>
+
+            </div>
+
+
+            <!-- ================= RESULT ================= -->
+
+            <div
+                    class="card result"
+                    id="result"
+            >
+
+                <h2 class="card-title">
+                    📊 Результат проверки
+                </h2>
+
+
+                <!-- ================= SCORE ================= -->
+
+                <div class="result-score">
+
+                    <div>
+
+                        <div class="score-label">
+                            Балл за письменную работу
+                        </div>
+
+                        <div class="score-number">
+
+            <span id="totalScore">
+                —
+            </span>
+
+                            <span class="score-max">
+                / 24
+            </span>
+
+                        </div>
+
+                        <div class="official-score">
+
+                            <div class="official-score-item">
+                                <span>75-балльная шкала</span>
+                                <strong id="score75">— / 75</strong>
+                            </div>
+
+                            <div class="official-score-item">
+                                <span>Уровень</span>
+                                <strong id="scoreLevel">—</strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="success-icon">
+                        ✓
+                    </div>
+
+                </div>
+
+                <!-- ================= CRITERIA ================= -->
+
+                <div class="criteria-result">
+
+                    <div class="result-item">
+                        <span>
+                            1. Стиль изложения
+                        </span>
+
+                        <strong>
+                            — / 2
+                        </strong>
+                    </div>
+
+
+                    <div class="result-item">
+                        <span>
+                            2. Раскрытие проблемы
+                        </span>
+
+                        <strong>
+                            — / 2
+                        </strong>
+                    </div>
+
+
+                    <div class="result-item">
+                        <span>
+                            3. Аргументация и личное мнение
+                        </span>
+
+                        <strong>
+                            — / 2
+                        </strong>
+                    </div>
+
+
+                    <div class="result-item">
+                        <span>
+                            4. Композиция
+                        </span>
+
+                        <strong>
+                            — / 2
+                        </strong>
+                    </div>
+
+
+                    <div class="result-item">
+                        <span>
+                            5. Логика и связность
+                        </span>
+
+                        <strong>
+                            — / 2
+                        </strong>
+                    </div>
+
+
+                    <div class="result-item">
+                        <span>
+                            6. Абзацное членение
+                        </span>
+
+                        <strong>
+                            — / 2
+                        </strong>
+                    </div>
+
+
+                    <div class="result-item">
+                        <span>
+                            7. Орфография
+                        </span>
+
+                        <strong>
+                            — / 2
+                        </strong>
+                    </div>
+
+
+                    <div class="result-item">
+                        <span>
+                            8. Пунктуация
+                        </span>
+
+                        <strong>
+                            — / 2
+                        </strong>
+                    </div>
+
+
+                    <div class="result-item">
+                        <span>
+                            9. Грамматические нормы
+                        </span>
+
+                        <strong>
+                            — / 2
+                        </strong>
+                    </div>
+
+
+                    <div class="result-item">
+                        <span>
+                            10. Грамматическая связность
+                        </span>
+
+                        <strong>
+                            — / 2
+                        </strong>
+                    </div>
+
+
+                    <div class="result-item">
+                        <span>
+                            11. Лексические нормы
+                        </span>
+
+                        <strong>
+                            — / 2
+                        </strong>
+                    </div>
+
+
+                    <div class="result-item">
+                        <span>
+                            12. Ненормативная / разговорная лексика
+                        </span>
+
+                        <strong>
+                            — / 2
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <!-- ================= REVIEW ================= -->
+
+                <div class="review-box">
+
+                    <h3>
+                        💬 Рецензия
+                    </h3>
+
+                    <p id="reviewText">
+                        После подключения AI здесь появится
+                        подробная рецензия на вашу работу.
+                    </p>
+
+                </div>
+                <div class="essay-review-section">
+                    <h3>📝 Эссе с выделенными ошибками</h3>
+
+                    <div id="highlightedEssay" class="highlighted-essay"></div>
+                </div>
+
+                <!-- ================= ERRORS ================= -->
+
+                <div class="errors-section">
+
+                    <h3>
+                        ⚠️ Ошибки
+                    </h3>
+
+                    <div id="errorsList"></div>
+
+                </div>
+
+
+                <!-- ================= RECOMMENDATIONS ================= -->
+
+                <div class="recommendations-section">
+
+                    <h3>
+                        💡 Рекомендации
+                    </h3>
+
+                    <div id="recommendationsList"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RIGHT ================= -->
+
+        <aside>
+
+            <div class="card">
+
+                <h2 class="card-title">
+                    📋 Критерии
+                </h2>
+
+
+                <div class="criteria">
+
+                    <div class="criterion">
+                        <span>1. Стиль</span>
+                        <strong>0–2</strong>
+                    </div>
+
+
+                    <div class="criterion">
+                        <span>2. Проблема</span>
+                        <strong>0–2</strong>
+                    </div>
+
+
+                    <div class="criterion">
+                        <span>3. Аргументация</span>
+                        <strong>0–2</strong>
+                    </div>
+
+
+                    <div class="criterion">
+                        <span>4. Композиция</span>
+                        <strong>0–2</strong>
+                    </div>
+
+
+                    <div class="criterion">
+                        <span>5. Логика</span>
+                        <strong>0–2</strong>
+                    </div>
+
+
+                    <div class="criterion">
+                        <span>6. Абзацы</span>
+                        <strong>0–2</strong>
+                    </div>
+
+
+                    <div class="criterion">
+                        <span>7. Орфография</span>
+                        <strong>0–2</strong>
+                    </div>
+
+
+                    <div class="criterion">
+                        <span>8. Пунктуация</span>
+                        <strong>0–2</strong>
+                    </div>
+
+
+                    <div class="criterion">
+                        <span>9. Грамматика</span>
+                        <strong>0–2</strong>
+                    </div>
+
+
+                    <div class="criterion">
+                        <span>10. Связность</span>
+                        <strong>0–2</strong>
+                    </div>
+
+
+                    <div class="criterion">
+                        <span>11. Лексика</span>
+                        <strong>0–2</strong>
+                    </div>
+
+
+                    <div class="criterion">
+                        <span>12. Нормы лексики</span>
+                        <strong>0–2</strong>
+                    </div>
+
+                </div>
+
+
+                <!-- ================= INFO ================= -->
+
+                <div class="info-box">
+
+                    <strong>
+                        Важно
+                    </strong>
+
+                    <p>
+                        Если работа содержит менее 100 слов,
+                        она оценивается минимально в 2 балла.
+                    </p>
+
+                    <p>
+                        Если эссе не написано или написано
+                        полностью/частично на другом языке,
+                        работа оценивается в 0 баллов.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</main>
+
+
+<script src="../js/rus-esse.js"></script>
+
+</body>
+
+</html>
