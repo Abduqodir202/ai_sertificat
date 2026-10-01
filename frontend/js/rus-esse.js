@@ -1,6 +1,7 @@
 // =====================================================
 // AI SERTIFIKAT
 // RUS TILI ESSE — FRONTEND
+// 75 BALLIK TIZIM
 // =====================================================
 
 console.log("RUS ESSE JS ISHLAYAPTI");
@@ -50,102 +51,29 @@ const scoreLevelElement =
 const API_URL =
     "/api/check-essay/";
 
-// =====================================================
-// 24 BALL → 75 BALL VA DARAJA
-// =====================================================
-
-function calculateOfficialResult(score24) {
-
-    const score = Number(score24);
-
-    if (Number.isNaN(score)) {
-        return {
-            score75: 0,
-            level: "—"
-        };
-    }
-
-    const conversionTable = {
-        24: 75,
-        23.5: 74,
-        23: 73,
-        22.5: 72,
-        22: 71,
-        21.5: 70,
-        21: 69,
-        20.5: 68,
-        20: 67,
-        19.5: 66,
-        19: 65,
-        18.5: 64,
-        18: 63,
-        17.5: 62,
-        17: 61,
-        16.5: 60,
-        16: 59,
-        15.5: 58,
-        15: 57,
-        14.5: 56,
-        14: 55,
-        13.5: 54,
-        13: 53,
-        12.5: 52,
-        12: 51,
-        11.5: 50,
-        11: 49,
-        10.5: 48,
-        10: 47,
-        9.5: 46
-    };
-
-    const score75 =
-        conversionTable[score] ?? 0;
-
-    let level = "—";
-
-    if (score75 >= 70) {
-        level = "A+";
-    }
-    else if (score75 >= 65) {
-        level = "A";
-    }
-    else if (score75 >= 60) {
-        level = "B+";
-    }
-    else if (score75 >= 55) {
-        level = "B";
-    }
-    else if (score75 >= 50) {
-        level = "C+";
-    }
-    else if (score75 >= 46) {
-        level = "C";
-    }
-
-    return {
-        score75: score75,
-        level: level
-    };
-}
-
 
 // =====================================================
 // 75 BALL NATIJASINI KO'RSATISH
 // =====================================================
 
-function displayOfficialResult(score24) {
+function displayOfficialResult(score75) {
 
-    const officialResult =
-        calculateOfficialResult(score24);
+    const score = Number(score75);
 
     if (score75Element) {
+
         score75Element.textContent =
-            `${officialResult.score75} / 75`;
+            Number.isFinite(score)
+                ? `${score} / 75`
+                : "— / 75";
     }
 
+    // Rasmiy daraja backenddan kelmasa,
+    // avtomatik A/B/C chiqarmaymiz.
     if (scoreLevelElement) {
+
         scoreLevelElement.textContent =
-            officialResult.level;
+            "—";
     }
 }
 
@@ -165,6 +93,7 @@ function analyzeText() {
     let words = [];
 
     if (trimmedText.length > 0) {
+
         words =
             trimmedText.split(/\s+/);
     }
@@ -189,22 +118,37 @@ function analyzeText() {
                 .length;
     }
 
-    wordCount.textContent =
-        wordsNumber;
 
-    charCount.textContent =
-        charactersNumber;
+    if (wordCount) {
 
-    paragraphCount.textContent =
-        paragraphsNumber;
+        wordCount.textContent =
+            wordsNumber;
+    }
+
+    if (charCount) {
+
+        charCount.textContent =
+            charactersNumber;
+    }
+
+    if (paragraphCount) {
+
+        paragraphCount.textContent =
+            paragraphsNumber;
+    }
 
 
     // =================================================
     // WORD STATUS
     // =================================================
 
+    if (!wordStatus) {
+        return;
+    }
+
     wordStatus.className =
         "word-status";
+
 
     if (wordsNumber === 0) {
 
@@ -242,14 +186,17 @@ function analyzeText() {
 // INPUT
 // =====================================================
 
-essayText.addEventListener(
-    "input",
-    analyzeText
-);
+if (essayText) {
+
+    essayText.addEventListener(
+        "input",
+        analyzeText
+    );
+}
 
 
 // =====================================================
-// ПРОВЕРКА ЭССЕ
+// ESSENI TEKSHIRISH
 // =====================================================
 
 async function checkEssay() {
@@ -289,6 +236,7 @@ async function checkEssay() {
         );
 
         if (topicInput) {
+
             topicInput.focus();
         }
 
@@ -326,10 +274,23 @@ async function checkEssay() {
             ".check-btn"
         );
 
+
+    if (!button) {
+
+        console.error(
+            "Кнопка .check-btn не найдена."
+        );
+
+        return;
+    }
+
+
     const originalText =
         button.textContent;
 
-    button.disabled = true;
+
+    button.disabled =
+        true;
 
     button.textContent =
         "⏳ Проверка...";
@@ -343,13 +304,12 @@ async function checkEssay() {
 
         const requestData = {
 
-            // Foydalanuvchi yozgan esse
-            essay: text,
+            essay:
+                text,
 
-            // Foydalanuvchi yozgan mavzu
-            topic: topic,
+            topic:
+                topic,
 
-            // O'quvchi ismi
             student_name:
                 studentName,
 
@@ -404,6 +364,7 @@ async function checkEssay() {
                         "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
                     },
@@ -430,6 +391,7 @@ async function checkEssay() {
                     await response.json();
 
             }
+
             catch (e) {
 
                 console.error(
@@ -438,10 +400,12 @@ async function checkEssay() {
                 );
             }
 
+
             console.error(
                 "Server error:",
                 errorData
             );
+
 
             throw new Error(
                 `HTTP error: ${response.status}`
@@ -469,6 +433,7 @@ async function checkEssay() {
 
         showResult();
 
+
         displayResult(
             resultData
         );
@@ -487,10 +452,16 @@ async function checkEssay() {
             error
         );
 
+
         showResult();
 
-        totalScore.textContent =
-            "—";
+
+        if (totalScore) {
+
+            totalScore.textContent =
+                "—";
+        }
+
 
         if (score75Element) {
 
@@ -498,15 +469,20 @@ async function checkEssay() {
                 "— / 75";
         }
 
+
         if (scoreLevelElement) {
 
             scoreLevelElement.textContent =
                 "—";
         }
 
-        reviewText.textContent =
-            "Сервер проверки недоступен. " +
-            "Проверьте Django backend.";
+
+        if (reviewText) {
+
+            reviewText.textContent =
+                "Сервер проверки недоступен. " +
+                "Проверьте Django backend.";
+        }
     }
 
 
@@ -531,11 +507,18 @@ async function checkEssay() {
 
 function showResult() {
 
+    if (!result) {
+        return;
+    }
+
+
     result.classList.add(
         "show"
     );
 
+
     result.scrollIntoView({
+
         behavior:
             "smooth",
 
@@ -551,20 +534,32 @@ function showResult() {
 
 function displayResult(data) {
 
+
     // =================================================
-    // UMUMIY BALL
+    // UMUMIY BALL — 75 BALL
     // =================================================
 
     if (
         data.total_score !== undefined
     ) {
 
-        totalScore.textContent =
-            data.total_score;
+        const score =
+            Number(
+                data.total_score
+            );
 
-        // 24 → 75
+
+        if (totalScore) {
+
+            totalScore.textContent =
+                Number.isFinite(score)
+                    ? score
+                    : "—";
+        }
+
+
         displayOfficialResult(
-            data.total_score
+            score
         );
     }
 
@@ -573,7 +568,10 @@ function displayResult(data) {
     // REVIEW
     // =================================================
 
-    if (data.review) {
+    if (
+        data.review &&
+        reviewText
+    ) {
 
         reviewText.textContent =
             data.review;
@@ -581,7 +579,7 @@ function displayResult(data) {
 
 
     // =================================================
-    // 12 MEZON
+    // 6 TA MEZON
     // =================================================
 
     if (
@@ -630,7 +628,7 @@ function displayResult(data) {
 
 
 // =====================================================
-// 12 TA MEZON
+// 6 TA MEZON
 // =====================================================
 
 function displayCriteria(criteria) {
@@ -640,13 +638,16 @@ function displayCriteria(criteria) {
             ".result-item"
         );
 
+
     resultItems.forEach(
         (item, index) => {
 
             const criterion =
                 criteria[index];
 
+
             if (!criterion) {
+
                 return;
             }
 
@@ -660,21 +661,29 @@ function displayCriteria(criteria) {
                     "strong"
                 );
 
+
             if (scoreElement) {
 
+                const maxScore =
+                    criterion.max_score !== undefined
+                        ? criterion.max_score
+                        : getMaxScore(index);
+
+
                 scoreElement.textContent =
-                    `${criterion.score} / 2`;
+                    `${criterion.score} / ${maxScore}`;
             }
 
 
             // =========================================
-            // REASON
+            // IZOH
             // =========================================
 
             let reasonElement =
                 item.querySelector(
                     ".criterion-reason"
                 );
+
 
             if (!reasonElement) {
 
@@ -683,18 +692,49 @@ function displayCriteria(criteria) {
                         "div"
                     );
 
+
                 reasonElement.className =
                     "criterion-reason";
+
 
                 item.appendChild(
                     reasonElement
                 );
             }
 
+
             reasonElement.textContent =
                 criterion.reason ||
                 "Комментарий отсутствует.";
         }
+    );
+}
+
+
+// =====================================================
+// MAX BALL
+// =====================================================
+
+function getMaxScore(index) {
+
+    const maxScores = [
+
+        20,
+
+        15,
+
+        10,
+
+        10,
+
+        10,
+
+        10
+    ];
+
+
+    return (
+        maxScores[index] || 0
     );
 }
 
@@ -710,17 +750,22 @@ function displayErrors(errors) {
             "errorsList"
         );
 
+
     const essayContainer =
         document.getElementById(
             "highlightedEssay"
         );
 
+
     if (!container) {
+
         return;
     }
 
+
     container.innerHTML =
         "";
+
 
     const essay =
         essayText.value.trim();
@@ -741,8 +786,10 @@ function displayErrors(errors) {
                 essay;
         }
 
+
         container.innerHTML =
             "<p>Ошибок не найдено.</p>";
+
 
         return;
     }
@@ -755,6 +802,7 @@ function displayErrors(errors) {
     if (essayContainer) {
 
         const fragments = [];
+
 
         errors.forEach(
             (error, index) => {
@@ -769,6 +817,7 @@ function displayErrors(errors) {
                         error.fragment ||
                         "";
 
+
                     if (fragment) {
 
                         fragments.push({
@@ -777,7 +826,7 @@ function displayErrors(errors) {
                                 fragment,
 
                             index:
-                                index + 1,
+                                index,
 
                             correction:
                                 error.correction ||
@@ -791,6 +840,7 @@ function displayErrors(errors) {
                 }
             }
         );
+
 
         highlightEssay(
             essayContainer,
@@ -812,6 +862,7 @@ function displayErrors(errors) {
                     "div"
                 );
 
+
             errorItem.className =
                 "error-item";
 
@@ -828,7 +879,7 @@ function displayErrors(errors) {
 
                 const type =
                     error.type ||
-                    "Ошибка";
+                    "Языковая ошибка";
 
                 const correction =
                     error.correction ||
@@ -840,22 +891,25 @@ function displayErrors(errors) {
 
 
                 // =====================================
-                // NUMBER
+                // ERROR TYPE
                 // =====================================
 
-                const number =
+                const typeElement =
                     document.createElement(
                         "div"
                     );
 
-                number.className =
-                    "error-number";
 
-                number.textContent =
+                typeElement.className =
+                    "error-type";
+
+
+                typeElement.textContent =
                     `${index + 1}. ${type}`;
 
+
                 errorItem.appendChild(
-                    number
+                    typeElement
                 );
 
 
@@ -870,11 +924,14 @@ function displayErrors(errors) {
                             "div"
                         );
 
+
                     fragmentElement.className =
                         "error-fragment";
 
+
                     fragmentElement.textContent =
                         `❌ ${fragment}`;
+
 
                     errorItem.appendChild(
                         fragmentElement
@@ -893,11 +950,14 @@ function displayErrors(errors) {
                             "div"
                         );
 
+
                     correctionElement.className =
                         "error-correction";
 
+
                     correctionElement.textContent =
                         `✅ ${correction}`;
+
 
                     errorItem.appendChild(
                         correctionElement
@@ -916,24 +976,28 @@ function displayErrors(errors) {
                             "div"
                         );
 
+
                     explanationElement.className =
                         "error-explanation";
 
+
                     explanationElement.textContent =
                         explanation;
+
 
                     errorItem.appendChild(
                         explanationElement
                     );
                 }
-
             }
+
 
             else {
 
                 errorItem.textContent =
                     `${index + 1}. ${error}`;
             }
+
 
             container.appendChild(
                 errorItem
@@ -965,11 +1029,12 @@ function highlightEssay(
     }
 
 
-    // ================================================
-    // FRAGMENTLARNI POZITSIYA BO'YICHA TOPISH
-    // ================================================
+    // =================================================
+    // FRAGMENTLARNI TOPISH
+    // =================================================
 
     const matches = [];
+
 
     fragments.forEach(
         item => {
@@ -977,11 +1042,16 @@ function highlightEssay(
             const fragment =
                 item.fragment;
 
+
             if (!fragment) {
+
                 return;
             }
 
-            let searchStart = 0;
+
+            let searchStart =
+                0;
+
 
             while (true) {
 
@@ -991,9 +1061,12 @@ function highlightEssay(
                         searchStart
                     );
 
+
                 if (position === -1) {
+
                     break;
                 }
+
 
                 matches.push({
 
@@ -1014,6 +1087,7 @@ function highlightEssay(
                         item.explanation
                 });
 
+
                 searchStart =
                     position +
                     fragment.length;
@@ -1022,9 +1096,9 @@ function highlightEssay(
     );
 
 
-    // ================================================
-    // POZITSIYA BO'YICHA SARALASH
-    // ================================================
+    // =================================================
+    // SARALASH
+    // =================================================
 
     matches.sort(
         (a, b) =>
@@ -1032,11 +1106,12 @@ function highlightEssay(
     );
 
 
-    // ================================================
+    // =================================================
     // OVERLAPNI OLIB TASHLASH
-    // ================================================
+    // =================================================
 
     const cleanMatches = [];
+
 
     matches.forEach(
         match => {
@@ -1045,6 +1120,7 @@ function highlightEssay(
                 cleanMatches[
                     cleanMatches.length - 1
                 ];
+
 
             if (
                 !previous ||
@@ -1059,20 +1135,25 @@ function highlightEssay(
     );
 
 
-    // ================================================
+    // =================================================
     // HTML QURISH
-    // ================================================
+    // =================================================
 
     container.innerHTML =
         "";
 
+
     let currentPosition =
         0;
+
 
     cleanMatches.forEach(
         match => {
 
-            // Oddiy matn
+            // =========================================
+            // ODDIY MATN
+            // =========================================
+
             if (
                 currentPosition <
                 match.start
@@ -1086,20 +1167,26 @@ function highlightEssay(
                         )
                     );
 
+
                 container.appendChild(
                     normalText
                 );
             }
 
 
-            // Xato fragment
+            // =========================================
+            // XATO FRAGMENT
+            // =========================================
+
             const errorSpan =
                 document.createElement(
                     "span"
                 );
 
+
             errorSpan.className =
                 "essay-error";
+
 
             errorSpan.textContent =
                 essay.substring(
@@ -1107,13 +1194,16 @@ function highlightEssay(
                     match.end
                 );
 
+
             errorSpan.dataset.errorNumber =
                 match.index;
+
 
             errorSpan.title =
                 match.correction
                     ? `Исправление: ${match.correction}`
                     : "Ошибка";
+
 
             errorSpan.addEventListener(
                 "click",
@@ -1126,9 +1216,11 @@ function highlightEssay(
                 }
             );
 
+
             container.appendChild(
                 errorSpan
             );
+
 
             currentPosition =
                 match.end;
@@ -1136,9 +1228,9 @@ function highlightEssay(
     );
 
 
-    // ================================================
+    // =================================================
     // QOLGAN MATN
-    // ================================================
+    // =================================================
 
     if (
         currentPosition <
@@ -1151,6 +1243,7 @@ function highlightEssay(
                     currentPosition
                 )
             );
+
 
         container.appendChild(
             remainingText
@@ -1168,13 +1261,16 @@ function showErrorPopup(
     error
 ) {
 
-    // Eski popup
+    // Eski popupni o'chirish
+
     const oldPopup =
         document.querySelector(
             ".essay-error-popup"
         );
 
+
     if (oldPopup) {
+
         oldPopup.remove();
     }
 
@@ -1184,22 +1280,33 @@ function showErrorPopup(
             "div"
         );
 
+
     popup.className =
         "essay-error-popup";
 
+
+    // =================================================
+    // TITLE
+    // =================================================
 
     const title =
         document.createElement(
             "strong"
         );
 
+
     title.textContent =
-        `Ошибка №${error.index}`;
+        `Ошибка №${Number(error.index) + 1}`;
+
 
     popup.appendChild(
         title
     );
 
+
+    // =================================================
+    // CORRECTION
+    // =================================================
 
     if (error.correction) {
 
@@ -1208,14 +1315,20 @@ function showErrorPopup(
                 "div"
             );
 
+
         correction.textContent =
             `Исправление: ${error.correction}`;
+
 
         popup.appendChild(
             correction
         );
     }
 
+
+    // =================================================
+    // EXPLANATION
+    // =================================================
 
     if (error.explanation) {
 
@@ -1224,8 +1337,10 @@ function showErrorPopup(
                 "div"
             );
 
+
         explanation.textContent =
             error.explanation;
+
 
         popup.appendChild(
             explanation
@@ -1246,11 +1361,14 @@ function showErrorPopup(
                 function closePopup(event) {
 
                     if (
-                        !popup.contains(event.target) &&
+                        !popup.contains(
+                            event.target
+                        ) &&
                         event.target !== element
                     ) {
 
                         popup.remove();
+
 
                         document.removeEventListener(
                             "click",
@@ -1279,9 +1397,12 @@ function displayRecommendations(
             "recommendationsList"
         );
 
+
     if (!container) {
+
         return;
     }
+
 
     container.innerHTML =
         "";
@@ -1307,6 +1428,7 @@ function displayRecommendations(
                     "div"
                 );
 
+
             item.className =
                 "recommendation-item";
 
@@ -1323,14 +1445,15 @@ function displayRecommendations(
                     JSON.stringify(
                         recommendation
                     );
-
             }
+
 
             else {
 
                 item.textContent =
                     `${index + 1}. ${recommendation}`;
             }
+
 
             container.appendChild(
                 item

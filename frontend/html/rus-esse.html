@@ -33,14 +33,15 @@
     <section class="page-title">
 
         <div class="subject-badge">
-            🇺🇿 О‘zbekiston Milliy sertifikati
+            🇺🇿 O‘zbekiston Milliy sertifikati
             <br>
             🇷🇺 Русский язык и литература
         </div>
 
         <h1>Проверка письменной работы</h1>
+
         <p class="exam-subtitle">
-            О‘zbekiston Milliy sertifikati — Русский язык и литература
+            O‘zbekiston Milliy sertifikati — Русский язык и литература
         </p>
 
         <p class="subtitle">
@@ -52,7 +53,6 @@
 
 
     <div class="content">
-
 
         <!-- ================= LEFT ================= -->
 
@@ -68,6 +68,7 @@
                         📝 Ваша письменная работа
                     </h2>
 
+
                     <!-- STUDENT NAME -->
 
                     <div class="student-field">
@@ -78,10 +79,10 @@
                         </label>
 
                         <input
-                                type="text"
-                                id="studentName"
-                                placeholder="Имя ученика"
-                                maxlength="150"
+                            type="text"
+                            id="studentName"
+                            placeholder="Имя ученика"
+                            maxlength="150"
                         >
 
                     </div>
@@ -92,24 +93,28 @@
                 <!-- ================= ТЕМА ================= -->
 
                 <div class="topic-box">
-                    <label for="essayTopic">ТЕМА</label>
+
+                    <label for="essayTopic">
+                        ТЕМА
+                    </label>
 
                     <textarea
-                            id="essayTopic"
-                            class="topic-input"
-                            placeholder="Введите тему письменной работы..."
-                            rows="2"
-                            maxlength="500"
+                        id="essayTopic"
+                        class="topic-input"
+                        placeholder="Введите тему письменной работы..."
+                        rows="2"
+                        maxlength="500"
                     ></textarea>
+
                 </div>
 
 
                 <!-- ================= ESSAY ================= -->
 
                 <textarea
-                        id="essayText"
-                        placeholder="Начните писать эссе здесь..."
-                        maxlength="20000"
+                    id="essayText"
+                    placeholder="Начните писать эссе здесь..."
+                    maxlength="20000"
                 ></textarea>
 
 
@@ -161,8 +166,8 @@
                 <!-- ================= REQUIREMENT ================= -->
 
                 <div
-                        id="wordStatus"
-                        class="word-status neutral"
+                    id="wordStatus"
+                    class="word-status neutral"
                 >
                     Введите эссе для проверки объёма.
                 </div>
@@ -171,8 +176,8 @@
                 <!-- ================= BUTTON ================= -->
 
                 <button
-                        class="check-btn"
-                        onclick="checkEssay()"
+                    class="check-btn"
+                    onclick="checkEssay()"
                 >
                     🔍 Проверить эссе
                 </button>
@@ -183,8 +188,8 @@
             <!-- ================= RESULT ================= -->
 
             <div
-                    class="card result"
-                    id="result"
+                class="card result"
+                id="result"
             >
 
                 <h2 class="card-title">
@@ -204,26 +209,47 @@
 
                         <div class="score-number">
 
-            <span id="totalScore">
-                —
-            </span>
+                            <span id="totalScore">
+                                —
+                            </span>
 
                             <span class="score-max">
-                / 24
-            </span>
+                                / 75
+                            </span>
 
                         </div>
+
+
+                        <div class="score-scale-note">
+                            Максимальный результат — 75 баллов
+                        </div>
+
 
                         <div class="official-score">
 
                             <div class="official-score-item">
-                                <span>75-балльная шкала</span>
-                                <strong id="score75">— / 75</strong>
+
+                                <span>
+                                    75-балльная шкала
+                                </span>
+
+                                <strong id="score75">
+                                    — / 75
+                                </strong>
+
                             </div>
 
+
                             <div class="official-score-item">
-                                <span>Уровень</span>
-                                <strong id="scoreLevel">—</strong>
+
+                                <span>
+                                    Уровень
+                                </span>
+
+                                <strong id="scoreLevel">
+                                    —
+                                </strong>
+
                             </div>
 
                         </div>
@@ -237,139 +263,90 @@
 
                 </div>
 
+
                 <!-- ================= CRITERIA ================= -->
 
-                <div class="criteria-result">
+                <div
+                    class="criteria-result"
+                    id="criteriaResult"
+                >
 
                     <div class="result-item">
+
                         <span>
-                            1. Стиль изложения
+                            1. Раскрытие темы (содержание)
                         </span>
 
-                        <strong>
-                            — / 2
+                        <strong id="criterion1">
+                            — / 20
                         </strong>
+
                     </div>
 
 
                     <div class="result-item">
+
                         <span>
-                            2. Раскрытие проблемы
+                            2. Аргументация и примеры
                         </span>
 
-                        <strong>
-                            — / 2
+                        <strong id="criterion2">
+                            — / 15
                         </strong>
+
                     </div>
 
 
                     <div class="result-item">
+
                         <span>
-                            3. Аргументация и личное мнение
+                            3. Структура и логика
                         </span>
 
-                        <strong>
-                            — / 2
+                        <strong id="criterion3">
+                            — / 10
                         </strong>
+
                     </div>
 
 
                     <div class="result-item">
+
                         <span>
-                            4. Композиция
+                            4. Лексика и стилистика
                         </span>
 
-                        <strong>
-                            — / 2
+                        <strong id="criterion4">
+                            — / 10
                         </strong>
+
                     </div>
 
 
                     <div class="result-item">
+
                         <span>
-                            5. Логика и связность
+                            5. Грамотность
                         </span>
 
-                        <strong>
-                            — / 2
+                        <strong id="criterion5">
+                            — / 10
                         </strong>
+
                     </div>
 
 
                     <div class="result-item">
+
                         <span>
-                            6. Абзацное членение
+                            6. Оригинальность
+                            (самостоятельность мысли)
                         </span>
 
-                        <strong>
-                            — / 2
+                        <strong id="criterion6">
+                            — / 10
                         </strong>
-                    </div>
 
-
-                    <div class="result-item">
-                        <span>
-                            7. Орфография
-                        </span>
-
-                        <strong>
-                            — / 2
-                        </strong>
-                    </div>
-
-
-                    <div class="result-item">
-                        <span>
-                            8. Пунктуация
-                        </span>
-
-                        <strong>
-                            — / 2
-                        </strong>
-                    </div>
-
-
-                    <div class="result-item">
-                        <span>
-                            9. Грамматические нормы
-                        </span>
-
-                        <strong>
-                            — / 2
-                        </strong>
-                    </div>
-
-
-                    <div class="result-item">
-                        <span>
-                            10. Грамматическая связность
-                        </span>
-
-                        <strong>
-                            — / 2
-                        </strong>
-                    </div>
-
-
-                    <div class="result-item">
-                        <span>
-                            11. Лексические нормы
-                        </span>
-
-                        <strong>
-                            — / 2
-                        </strong>
-                    </div>
-
-
-                    <div class="result-item">
-                        <span>
-                            12. Ненормативная / разговорная лексика
-                        </span>
-
-                        <strong>
-                            — / 2
-                        </strong>
                     </div>
 
                 </div>
@@ -389,11 +366,23 @@
                     </p>
 
                 </div>
-                <div class="essay-review-section">
-                    <h3>📝 Эссе с выделенными ошибками</h3>
 
-                    <div id="highlightedEssay" class="highlighted-essay"></div>
+
+                <!-- ================= ESSAY WITH ERRORS ================= -->
+
+                <div class="essay-review-section">
+
+                    <h3>
+                        📝 Эссе с выделенными ошибками
+                    </h3>
+
+                    <div
+                        id="highlightedEssay"
+                        class="highlighted-essay"
+                    ></div>
+
                 </div>
+
 
                 <!-- ================= ERRORS ================= -->
 
@@ -439,74 +428,95 @@
                 <div class="criteria">
 
                     <div class="criterion">
-                        <span>1. Стиль</span>
-                        <strong>0–2</strong>
+
+                        <span>
+                            1. Раскрытие темы
+                        </span>
+
+                        <strong>
+                            0–20
+                        </strong>
+
                     </div>
 
 
                     <div class="criterion">
-                        <span>2. Проблема</span>
-                        <strong>0–2</strong>
+
+                        <span>
+                            2. Аргументация и примеры
+                        </span>
+
+                        <strong>
+                            0–15
+                        </strong>
+
                     </div>
 
 
                     <div class="criterion">
-                        <span>3. Аргументация</span>
-                        <strong>0–2</strong>
+
+                        <span>
+                            3. Структура и логика
+                        </span>
+
+                        <strong>
+                            0–10
+                        </strong>
+
                     </div>
 
 
                     <div class="criterion">
-                        <span>4. Композиция</span>
-                        <strong>0–2</strong>
+
+                        <span>
+                            4. Лексика и стилистика
+                        </span>
+
+                        <strong>
+                            0–10
+                        </strong>
+
                     </div>
 
 
                     <div class="criterion">
-                        <span>5. Логика</span>
-                        <strong>0–2</strong>
+
+                        <span>
+                            5. Грамотность
+                        </span>
+
+                        <strong>
+                            0–10
+                        </strong>
+
                     </div>
 
 
                     <div class="criterion">
-                        <span>6. Абзацы</span>
-                        <strong>0–2</strong>
+
+                        <span>
+                            6. Оригинальность
+                        </span>
+
+                        <strong>
+                            0–10
+                        </strong>
+
                     </div>
 
 
-                    <div class="criterion">
-                        <span>7. Орфография</span>
-                        <strong>0–2</strong>
-                    </div>
+                    <div class="criterion-total">
 
+                        <span>
+                            <strong>
+                                ИТОГО
+                            </strong>
+                        </span>
 
-                    <div class="criterion">
-                        <span>8. Пунктуация</span>
-                        <strong>0–2</strong>
-                    </div>
+                        <strong>
+                            75 баллов
+                        </strong>
 
-
-                    <div class="criterion">
-                        <span>9. Грамматика</span>
-                        <strong>0–2</strong>
-                    </div>
-
-
-                    <div class="criterion">
-                        <span>10. Связность</span>
-                        <strong>0–2</strong>
-                    </div>
-
-
-                    <div class="criterion">
-                        <span>11. Лексика</span>
-                        <strong>0–2</strong>
-                    </div>
-
-
-                    <div class="criterion">
-                        <span>12. Нормы лексики</span>
-                        <strong>0–2</strong>
                     </div>
 
                 </div>
@@ -522,7 +532,8 @@
 
                     <p>
                         Если работа содержит менее 100 слов,
-                        она оценивается минимально в 2 балла.
+                        итоговая оценка должна учитывать
+                        установленное правило минимальной оценки.
                     </p>
 
                     <p>
@@ -542,8 +553,7 @@
 </main>
 
 
-<script src="../js/rus-esse.js"></script>
-
+<script src="../js/rus-esse-75-ball.js"></script>
 </body>
 
 </html>
