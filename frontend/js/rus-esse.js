@@ -13,6 +13,11 @@ console.log("RUS ESSE JS ISHLAYAPTI");
 
 const essayText =
     document.getElementById("essayText");
+    const essayFile =
+    document.getElementById("essayFile");
+
+const ocrStatus =
+    document.getElementById("ocrStatus");
 
 const topicInput =
     document.getElementById("essayTopic");
@@ -1434,7 +1439,6 @@ function displayRecommendations(
 
 
             if (
-                typeof recommendation ===
                     "object" &&
                 recommendation !== null
             ) {
@@ -1460,6 +1464,88 @@ function displayRecommendations(
             );
         }
     );
+}
+
+// =====================================================
+// OCR — RASM / PDF DAN MATN OLISH
+// =====================================================
+
+if (essayFile) {
+
+    essayFile.addEventListener("change", async function () {
+
+        const file = this.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        if (ocrStatus) {
+            ocrStatus.textContent =
+                "⏳ Fayl o‘qilmoqda...";
+        }
+
+        const formData = new FormData();
+
+        formData.append("file", file);
+
+        try {
+
+            const response = await fetch(
+                "/api/ocr/",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            const data =
+                await response.json();
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "OCR xatosi"
+                );
+            }
+
+            if (essayText) {
+
+                essayText.value =
+                    data.text || "";
+
+                analyzeText();
+            }
+
+            if (ocrStatus) {
+
+                ocrStatus.textContent =
+                    "✅ Matn muvaffaqiyatli olindi.";
+            }
+
+        }
+        catch (error) {
+
+            console.error(
+                "OCR error:",
+                error
+            );
+
+            if (ocrStatus) {
+
+                ocrStatus.textContent =
+                    "❌ Faylni o‘qib bo‘lmadi.";
+            }
+
+            alert(
+                "OCR xatosi: " +
+                error.message
+            );
+        }
+
+    });
+
 }
 
 

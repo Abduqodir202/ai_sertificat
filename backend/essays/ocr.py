@@ -112,11 +112,15 @@ def file_to_text(file):
         "fayl yuborish mumkin."
     )
 
+
+
 if __name__ == "__main__":
     print("OCR ishlayapti!")
-if __name__ == "__main__":
+
     with open("backend/essays/test_esse.pdf", "rb") as file:
         text = pdf_to_text(file.read())
 
     print("\n--- PDF OCR NATIJA ---\n")
     print(text)
+
+

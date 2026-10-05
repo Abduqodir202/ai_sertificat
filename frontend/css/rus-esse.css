@@ -1950,3 +1950,43 @@ textarea:focus {
         margin: 0;
     }
 }
+
+
+/* OCR UPLOAD */
+
+.ocr-upload {
+    display: block !important;
+    width: 100%;
+    margin: 20px 0;
+    padding: 20px;
+    border: 2px dashed #20e58b;
+    border-radius: 14px;
+    background: #0a171d;
+    text-align: center;
+}
+
+.ocr-upload-label {
+    display: inline-flex !important;
+    padding: 12px 24px;
+    background: #20e58b;
+    color: #050b0f;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ocr-upload input[type="file"] {
+    display: none !important;
+}
+
+.ocr-upload small {
+    display: block !important;
+    margin-top: 10px;
+    color: #a1afb5;
+    font-size: 13px;
+}
+
+#ocrStatus {
+    display: block !important;
+}

@@ -1,6 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from .ocr import file_to_text
+
 
 from django.contrib.auth.models import User
 
@@ -1046,3 +1048,47 @@ class CheckEssayAPIView(APIView):
             },
             status=status.HTTP_200_OK
         )
+
+class OCRAPIView(APIView):
+    def post(self, request):
+        uploaded_file = request.FILES.get("file")
+
+        if not uploaded_file:
+            return Response(
+                {"error": "Fayl yuborilmadi."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            text = file_to_text(uploaded_file)
+
+            if not text.strip():
+                return Response(
+                    {"error": "Fayldan matn topilmadi."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            return Response({
+                "text": text,
+                "word_count": len(text.split()),
+                "character_count": len(text)
+            }, status=status.HTTP_200_OK)
+
+        except ValueError as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        except Exception as e:
+            print("========== OCR ERROR ==========")
+            print(str(e))
+            print("===============================")
+
+            return Response(
+                {
+                    "error": "OCR ishlashida xatolik.",
+                    "details": str(e)
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
